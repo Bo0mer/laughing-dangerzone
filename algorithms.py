@@ -130,25 +130,23 @@ def pairs_of_shortest_paths(graph, weight_attribute='weight', infinity=65536):
 	return dict(distance)
 
 
-def dijkstra(graph, start, end=None, weight_attribute='weight'):
+def dijkstra(graph, start, pred=None, weight_attribute='weight'):
 	distance = {start: 0}
-	queue = deque([start])
-	while queue:
-		v = queue.popleft()
+	heap = [(0, start)]
+	while heap:
+		dv, v = heapq.heappop(heap)
 		for u in graph[v]:
 			if u not in distance:
-				distance[u] = distance[v] + graph[v][u][weight_attribute]
-				queue.append(u)
-
-	heap = [(0, start)]
-	for node in distance:
-			heapq.heappush(heap, (distance[node], node))
-	while heap:
-		dist, current_node = heapq.heappop(heap)#
-
-		for node in graph[current_node]:
-			alt = dist + graph[current_node][node][weight_attribute]
-			if alt < distance[node]:
-				distance[node] = alt
-				heapq.heappush(heap, (alt, node))
+				distance[u] = dv + graph[v][u][weight_attribute]
+				heapq.heappush(heap, (distance[u], u))
+			else:
+				for w in graph[u]:
+					alt = distance[u] + graph[u][w][weight_attribute]
+					if w not in distance:
+						heapq.heappush(heap, (alt, w))
+					elif alt < distance[w]:
+						distance[w] = alt
+						if pred is not None:
+							pred[w] = u
+						
 	return distance

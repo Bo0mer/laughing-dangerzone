@@ -92,6 +92,28 @@ class AlgorithmsTest(unittest.TestCase):
 		self.assertEqual(shortest_paths_from(g, 'Pernik'),
 					{'Pernik': 0})
 
+	def test_dijkstra(self):
+		g = Graph()
+		g.add_edge(1, 2, weight=5)
+		g.add_edge(1, 3, weight=29)
+		g.add_edge(1, 6, weight=70)
+		g.add_edge(2, 3, weight=10)
+		g.add_edge(2, 4, weight=15)
+		g.add_edge(3, 4, weight=51)
+		g.add_edge(4, 5, weight=6)
+		g.add_edge(3, 6, weight=10)
+		self.assertEqual(dijkstra(g, 1),
+						{1: 0, 2: 5, 3: 15,
+						 4: 20, 5: 26, 6: 25})
+
+	def test_dijkstra_with_no_path(self):
+		g = Graph()
+		g.add_edge(2, 3, weight=10)
+		g.add_edge(3, 5, weight=5)
+		g.add_edge(2, 5, weight=17)
+		g.add_node(1)
+		self.assertEqual(dijkstra(g, 1), {1: 0})
+
 
 if __name__ == '__main__':
 	unittest.main()
