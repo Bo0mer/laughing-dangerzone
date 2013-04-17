@@ -35,5 +35,22 @@ class AlgorithmsTest(unittest.TestCase):
 		for level, graph_level in enumerate(bfs(g, 1)):
 			self.assertEqual(must_be[level], graph_level)
 
+	def test_connected_components(self):
+		g = Graph()
+		g.add_edge(1, 2)
+		self.assertEqual(connected_components(g), 1)
+		g.add_edge(3, 2)
+		self.assertEqual(connected_components(g), 1)
+		g.add_edge('Sofia', 'Varna')
+		self.assertEqual(connected_components(g), 2)
+		g.add_edge('Varna', 1)
+		self.assertEqual(connected_components(g), 1)
+		g.add_node('LeftAlone')
+		self.assertEqual(connected_components(g), 2)
+		g.add_node('AlsoLeftAlone')
+		self.assertEqual(connected_components(g), 3)
+		g.add_edge('LeftAlone', 'AlsoLeftAlone')
+		self.assertEqual(connected_components(g), 2)
+
 if __name__ == '__main__':
 	unittest.main()
