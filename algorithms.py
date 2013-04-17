@@ -1,5 +1,5 @@
 import copy
-from collections import deque
+from collections import deque, defaultdict
 
 from graphs import Graph
 
@@ -60,6 +60,7 @@ def is_connected(graph):
 def unweighted_shortest_path(graph, start, end):
 	''' Returns shortest path between start and end in list.
 		If there is no path returns None. '''
+
 	if start not in graph:
 		return None
 	visited = set()
@@ -82,8 +83,10 @@ def unweighted_shortest_path(graph, start, end):
 
 
 def shortest_paths_from(graph, start, pred=None, weight_attribute='weight'):
-	''' Returns dict with shortest paths from start to each node, accessible from start.
-		If pred (dict) is passed, the predecessors for each node will be saved there. '''
+	''' Returns dict with shortest paths from start to each node,
+		accessible from start. If pred (dict) is passed, 
+		the predecessors for each node will be saved there. '''
+
 	distance = {}
 	distance[start] = 0
 	if pred is not None:
@@ -96,3 +99,31 @@ def shortest_paths_from(graph, start, pred=None, weight_attribute='weight'):
 					if pred is not None:
 						pred[v] = u
 	return distance
+
+
+def pairs_of_shortest_paths(graph, weight_attribute='weight', infinity=65536):
+	''' Computes all pairs of shortest paths in graph.
+		Infinity should be specified, otherwise 65536 will be chosen.
+		Returns dict with shortest paths, where dict[u][v] is the length
+		of the shortest path between u and v, or infinity if there is no
+		path between them. '''
+
+	def edge_iter(graph):
+		for node in graph:
+			for other_node in graph[node]:
+				yield node, other_node, graph[node][other_node]
+
+	distance = {}
+	for node in graph:
+		distance[node] = defaultdict(lambda: infinity)
+		distance[node][node] = 0
+
+	for u, v, data in edge_iter(graph):
+		distance[u][v] = data[weight_attribute]
+
+	for u in graph:
+		for v in graph:
+			for w in graph:
+				if distance[v][u] + distance[u][w] < distance[v][w]:
+					distance[v][w] = distance[v][u] + distance[u][w]
+	return dict(distance)
