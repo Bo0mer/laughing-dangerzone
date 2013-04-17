@@ -71,5 +71,27 @@ class AlgorithmsTest(unittest.TestCase):
 		g.add_node(5)
 		self.assertEqual(unweighted_shortest_path(g, 1, 5), None)
 
+	def test_shortest_paths_from(self):
+		g = Graph()
+		g.add_edge('London', 'Sofia', weight=2500)
+		g.add_edge('London', 'New York', weight=7500)
+		g.add_edge('Sofia', 'Chicago', weight=9000)
+		g.add_edge('Chicago', 'New York', weight=975)
+		g.add_edge('Lisbon', 'Sidney', weight=12000)
+
+		self.assertEqual(shortest_paths_from(g, 'Sofia'),
+					{'London': 2500, 'New York': 9975,
+					 'Chicago': 9000, 'Sofia': 0})
+
+	def test_shortest_paths_from_without_path(self):
+		g = Graph()
+		g.add_edge('London', 'Chicago', weight=7600)
+		g.add_edge('Chicago', 'New York', weight=975)
+		g.add_edge('Sofia', 'Lisbon', weight=10000)
+		g.add_node('Pernik')
+		self.assertEqual(shortest_paths_from(g, 'Pernik'),
+					{'Pernik': 0})
+
+
 if __name__ == '__main__':
 	unittest.main()

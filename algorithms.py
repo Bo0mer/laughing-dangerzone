@@ -80,3 +80,19 @@ def unweighted_shortest_path(graph, start, end):
 				queue.append(adj_node)
 				pred[adj_node] = current_node
 
+
+def shortest_paths_from(graph, start, pred=None, weight_attribute='weight'):
+	''' Returns dict with shortest paths from start to each node, accessible from start.
+		If pred (dict) is passed, the predecessors for each node will be saved there. '''
+	distance = {}
+	distance[start] = 0
+	if pred is not None:
+		pred[start] = None
+	for i in range(0, graph.order()):
+		for u, distance_u in list(distance.items()):
+			for v, data in graph[u].items():
+				if v not in distance or distance[v] > distance_u + data[weight_attribute]:
+					distance[v] = distance_u + data[weight_attribute]
+					if pred is not None:
+						pred[v] = u
+	return distance
