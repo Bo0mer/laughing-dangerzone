@@ -33,7 +33,6 @@ class AlgorithmsTest(unittest.TestCase):
 					3: {'London': set(), 'Sofia': set(), 'Bourgas': set()}}
 
 		for level, graph_level in enumerate(bfs(g, 1)):
-			print(graph_level)
 			self.assertEqual(must_be[level], graph_level)
 
 if __name__ == '__main__':
