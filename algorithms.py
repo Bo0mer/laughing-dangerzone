@@ -1,4 +1,5 @@
 import copy
+import heapq
 from collections import deque, defaultdict
 
 from graphs import Graph
@@ -127,3 +128,30 @@ def pairs_of_shortest_paths(graph, weight_attribute='weight', infinity=65536):
 				if distance[v][u] + distance[u][w] < distance[v][w]:
 					distance[v][w] = distance[v][u] + distance[u][w]
 	return dict(distance)
+
+
+def dijkstra(graph, start, end=None, weight_attribute='weight'):
+	distance = {}
+	distance[start] = 0
+	pred = {}
+	pred[start] = None
+	visited = set()
+	heap = [(0, start)]
+
+	for node in graph:
+		if node != start:
+			distance[node] = 65536
+			heapq.heappush(heap, (65536, node))
+	while heap:
+		dist, current_node = heapq.heappop(heap)#
+
+		if distance[current_node] == 65536:
+			break
+
+		for node in graph[current_node]:
+			alt = dist + graph[current_node][node][weight_attribute]
+			if alt < distance[node]:
+				distance[node] = alt
+				pred[node] = current_node
+				heapq.heappush(heap, (alt, node))
+	return distance
