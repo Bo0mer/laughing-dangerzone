@@ -50,3 +50,9 @@ def connected_components(graph):
 				for parent, child in dfs(graph, node):
 					visited.update([parent, child])
 	return components
+
+
+def is_connected(graph):
+	return connected_components(graph) == 1
+
+
