@@ -131,6 +131,12 @@ def pairs_of_shortest_paths(graph, weight_attribute='weight', infinity=65536):
 
 
 def dijkstra(graph, start, pred=None, weight_attribute='weight'):
+	''' Dijkstra's algorithm.
+		Returns dict with shortest paths from start to each node,
+		accessible from start. If pred (dict) is passed, 
+		the predecessors for each node will be saved there.
+		Dijkstra's algorithm WILL NOT work if there are edges
+		with negative weight! '''
 	distance = {start: 0}
 	heap = [(0, start)]
 	while heap:
