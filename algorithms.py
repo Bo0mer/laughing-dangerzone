@@ -7,11 +7,11 @@ def dfs(graph, start):
 	''' Runs depth-first search from start node. yields (parent, child) for each visited node. '''
 	if start in graph:
 		stack = deque()
-		visited = deque()
+		visited = set()
 		stack.append(start)
 		while stack:
 			node = stack.pop()
-			visited.appendleft(node)
+			visited.add(node)
 			for adj_node in graph[node]:
 				if adj_node not in visited:
 					yield node, adj_node
