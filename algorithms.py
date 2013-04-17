@@ -1,3 +1,4 @@
+import copy
 from collections import deque
 
 from graphs import Graph
@@ -55,4 +56,27 @@ def connected_components(graph):
 def is_connected(graph):
 	return connected_components(graph) == 1
 
+
+def unweighted_shortest_path(graph, start, end):
+	''' Returns shortest path between start and end in list.
+		If there is no path returns None. '''
+	if start not in graph:
+		return None
+	visited = set()
+	queue = deque([start])
+	pred = {}
+	while queue:
+		current_node = queue.popleft()
+		visited.add(current_node)
+		for adj_node in graph[current_node]:
+			if adj_node == end:
+				reversed_path = [end, current_node]
+				node_iter = copy.copy(current_node)
+				while node_iter in pred:
+					reversed_path.append(pred[node_iter])
+					node_iter = pred[node_iter]
+				return reversed_path[::-1]
+			elif adj_node not in visited:
+				queue.append(adj_node)
+				pred[adj_node] = current_node
 

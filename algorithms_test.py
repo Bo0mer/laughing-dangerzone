@@ -52,5 +52,24 @@ class AlgorithmsTest(unittest.TestCase):
 		g.add_edge('LeftAlone', 'AlsoLeftAlone')
 		self.assertEqual(connected_components(g), 2)
 
+	def test_unweighted_shortest_path(self):
+		g = Graph()
+		g.add_edge(1, 2)
+		g.add_edge(2, 3)
+		g.add_edge(3, 4)
+		g.add_edge(4, 5)
+		g.add_edge(1, 'Sofia')
+		g.add_edge('Sofia', 5)
+		self.assertEqual(unweighted_shortest_path(g, 1, 5), [1, 'Sofia', 5])
+
+	def test_unweighted_shortest_path_without_path(self):
+		g = Graph()
+		g.add_edge(1, 2)
+		g.add_edge(2, 3)
+		g.add_edge(3, 4)
+		g.add_edge(1, 'Sofia')
+		g.add_node(5)
+		self.assertEqual(unweighted_shortest_path(g, 1, 5), None)
+
 if __name__ == '__main__':
 	unittest.main()
