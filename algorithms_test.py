@@ -127,7 +127,9 @@ class AlgorithmsTest(unittest.TestCase):
 		g.add_edge(7, 8, weight=6)
 		g.add_edge(8, 1, weight=14)
 		g.add_edge(8, 2, weight=8)
-		self.assertEqual(sum([weight for u, v, weight in mst_prim(g, 1)]), 53)
+		for i in range(1, 9):
+			self.assertEqual(sum([weight for u, v, weight in mst_prim(g, i)]),
+						53)
 
 	def test_mst_prim_tree(self):
 		g = Graph()

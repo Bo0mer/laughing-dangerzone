@@ -164,20 +164,16 @@ def mst_prim(graph, start=None, weight_attribute='weight'):
 
 	nodes = {node for node in graph if node != start}
 	heap = []
-	if start is None:
-		start = nodes.pop()
-	visited = {start,}
 
 	for v in graph[start]:
 		heapq.heappush(heap, (graph[v][start][weight_attribute], start, v))
 
 	while nodes:
 		weight, u, v = heapq.heappop(heap)
-		if v not in visited:
-			visited.add(v)
-			nodes.remove(v)
+		if v in nodes:
+			nodes.discard(v)
 			for w in graph[v]:
-				if w not in visited:
+				if w in nodes:
 					heapq.heappush(heap,
 						(graph[v][w][weight_attribute], v, w))
 			yield u, v, weight
