@@ -154,5 +154,30 @@ def dijkstra(graph, start, pred=None, weight_attribute='weight'):
 						distance[w] = alt
 						if pred is not None:
 							pred[w] = u
-						
 	return distance
+
+
+def mst_prim(graph, start=None, weight_attribute='weight'):
+	''' Yields (parent, child, weight) for each edge added
+		to the minimum spanning tree. Note that there could
+		be more than one such trees! '''
+
+	nodes = {node for node in graph if node != start}
+	heap = []
+	if start is None:
+		start = nodes.pop()
+	visited = {start,}
+
+	for v in graph[start]:
+		heapq.heappush(heap, (graph[v][start][weight_attribute], start, v))
+
+	while nodes:
+		weight, u, v = heapq.heappop(heap)
+		if v not in visited:
+			visited.add(v)
+			nodes.remove(v)
+			for w in graph[v]:
+				if w not in visited:
+					heapq.heappush(heap,
+						(graph[v][w][weight_attribute], v, w))
+			yield u, v, weight
