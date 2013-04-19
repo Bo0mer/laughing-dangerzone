@@ -56,7 +56,7 @@ class DiGraph():
 		return iter(self.successors[node])
 
 	def __getitem__(self, key):
-		return self.nodes[key]
+		return self.adjacent[key]
 
 	def __iter__(self):
 		return iter(self.nodes)

@@ -137,6 +137,7 @@ def dijkstra(graph, start, pred=None, weight_attribute='weight'):
 		the predecessors for each node will be saved there.
 		Dijkstra's algorithm WILL NOT work if there are edges
 		with negative weight! '''
+
 	distance = {start: 0}
 	heap = [(0, start)]
 	while heap:
@@ -146,14 +147,16 @@ def dijkstra(graph, start, pred=None, weight_attribute='weight'):
 				distance[u] = dv + graph[v][u][weight_attribute]
 				heapq.heappush(heap, (distance[u], u))
 			else:
-				for w in graph[u]:
-					alt = distance[u] + graph[u][w][weight_attribute]
-					if w not in distance:
-						heapq.heappush(heap, (alt, w))
-					elif alt < distance[w]:
-						distance[w] = alt
-						if pred is not None:
-							pred[w] = u
+				if distance[u] > dv + graph[v][u][weight_attribute]:
+					distance[u] = dv + graph[v][u][weight_attribute]
+			for w in graph[u]:
+				alt = distance[u] + graph[u][w][weight_attribute]
+				if w not in distance:
+					heapq.heappush(heap, (alt, w))
+				elif alt < distance[w]:
+					distance[w] = alt
+					if pred is not None:
+						pred[w] = u
 	return distance
 
 
