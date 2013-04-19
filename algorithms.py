@@ -163,7 +163,10 @@ def dijkstra(graph, start, pred=None, weight_attribute='weight'):
 def mst_prim(graph, start=None, weight_attribute='weight'):
 	''' Yields (parent, child, weight) for each edge added
 		to the minimum spanning tree. Note that there could
-		be more than one such trees! '''
+		be more than one such trees! Only for undirected graphs. '''
+
+	if graph.is_directed():
+		return None
 
 	nodes = {node for node in graph if node != start}
 	heap = []
