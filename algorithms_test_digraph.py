@@ -61,6 +61,21 @@ class DiAlgorithmsTest(unittest.TestCase):
 		self.assertEqual(shortest_paths_from(g, 'Sofia'),
 					{'New York': 9975, 'Chicago': 9000, 'Sofia': 0})
 
+	def test_shortest_patsh_from_with_negative_edge(self):
+		g = DiGraph()
+		g.add_edge(1, 2, w=7)
+		g.add_edge(1, 4, w=6)
+		g.add_edge(4, 5, w=5)
+		g.add_edge(5, 4, w=-2)
+		g.add_edge(2, 3, w=9)
+		g.add_edge(2, 5, w=-3)
+		g.add_edge(4, 2, w=8)
+		g.add_edge(4, 3, w=-4)
+		g.add_edge(3, 1, w=7)
+		g.add_edge(3, 5, w=7)
+		self.assertEqual(shortest_paths_from(g, 1, weight_attribute='w'),
+						{1: 0, 2: 7, 3: -2, 4: 2, 5: 4})
+
 	def test_shortest_paths_from_without_path(self):
 		g = Graph()
 		g.add_edge('London', 'Chicago', weight=7600)
