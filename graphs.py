@@ -11,7 +11,8 @@ class Graph:
 
 	def add_node(self, node, **kwargs):
 		self.nodes.setdefault(node, {}).update(kwargs)
-		self.adjacent[node] = {}
+		if node not in self.adjacent:
+			self.adjacent[node] = {}
 
 	def remove_node(self, node):
 		del self.adjacent[node]
