@@ -1,7 +1,10 @@
 import unittest
 
 from graphs.digraphs import DiGraph
-from algorithms.algorithms import *
+from algorithms.traversal import *
+from algorithms.connectivity import *
+from algorithms.shortest_paths import *
+from algorithms.mst import *
 
 class DiAlgorithmsTest(unittest.TestCase):
 

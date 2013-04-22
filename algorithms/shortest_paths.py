@@ -3,59 +3,6 @@ import heapq
 from collections import deque, defaultdict
 
 
-def dfs(graph, start):
-	''' Runs depth-first search from start node. yields (parent, child) for each visited node. '''
-	if start in graph:
-		stack = deque()
-		visited = set()
-		stack.append(start)
-		while stack:
-			node = stack.pop()
-			visited.add(node)
-			for adj_node in graph[node]:
-				if adj_node not in visited:
-					yield node, adj_node
-					stack.append(adj_node)
-
-
-def bfs(graph, start):
-	''' Runs breadth-first serach from start node. yeilds {node: {child_node, child_node2},
-	other_node: {o_child_node, o_child_node2}} '''
-	current_level = [start]
-	visited = {}
-	while current_level:
-		for node in current_level:
-			visited[node] = 1
-		next_level = set()
-		level_graph = {node: set() for node in current_level}
-		for node in current_level:
-			for iter_node in graph[node]:
-				if iter_node not in visited:
-					level_graph[node].add(iter_node)
-					next_level.add(iter_node)
-		yield level_graph
-		current_level = next_level
-
-
-def connected_components(graph):
-	''' Returns the number of connected components in undirected graph. '''
-	if graph.is_directed():
-		pass  # should be implemented later
-	else:
-		visited = set()
-		components = 0
-		for node in graph:
-			if node not in visited:
-				components += 1
-				for parent, child in dfs(graph, node):
-					visited.update([parent, child])
-	return components
-
-
-def is_connected(graph):
-	return connected_components(graph) == 1
-
-
 def unweighted_shortest_path(graph, start, end):
 	''' Returns shortest path between start and end in list.
 		If there is no path returns None. '''
@@ -156,28 +103,3 @@ def dijkstra(graph, start, pred=None, weight_attribute='weight'):
 					if pred is not None:
 						pred[w] = u
 	return distance
-
-
-def mst_prim(graph, start=None, weight_attribute='weight'):
-	''' Yields (parent, child, weight) for each edge added
-		to the minimum spanning tree. Note that there could
-		be more than one such trees! Only for undirected graphs. '''
-
-	if graph.is_directed():
-		return None
-
-	nodes = {node for node in graph if node != start}
-	heap = []
-
-	for v in graph[start]:
-		heapq.heappush(heap, (graph[v][start][weight_attribute], start, v))
-
-	while nodes:
-		weight, u, v = heapq.heappop(heap)
-		if v in nodes:
-			nodes.discard(v)
-			for w in graph[v]:
-				if w in nodes:
-					heapq.heappush(heap,
-						(graph[v][w][weight_attribute], v, w))
-			yield u, v, weight
