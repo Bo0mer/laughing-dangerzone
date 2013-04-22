@@ -1,5 +1,7 @@
 import unittest
-from digraphs import DiGraph
+
+from graphs.digraphs import DiGraph
+
 
 class BasicDiGraphTest(unittest.TestCase):
 

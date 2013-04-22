@@ -1,6 +1,7 @@
 import unittest
 
-from algorithms import *
+from graphs.graphs import Graph
+from algorithms.algorithms import *
 
 
 class AlgorithmsTest(unittest.TestCase):

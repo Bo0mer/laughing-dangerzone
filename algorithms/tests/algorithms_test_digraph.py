@@ -1,7 +1,7 @@
 import unittest
 
-from digraphs import DiGraph
-from algorithms import *
+from graphs.digraphs import DiGraph
+from algorithms.algorithms import *
 
 class DiAlgorithmsTest(unittest.TestCase):
 
@@ -77,7 +77,7 @@ class DiAlgorithmsTest(unittest.TestCase):
 						{1: 0, 2: 7, 3: -2, 4: 2, 5: 4})
 
 	def test_shortest_paths_from_without_path(self):
-		g = Graph()
+		g = DiGraph()
 		g.add_edge('London', 'Chicago', weight=7600)
 		g.add_edge('Chicago', 'New York', weight=975)
 		g.add_edge('Sofia', 'Lisbon', weight=10000)

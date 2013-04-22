@@ -2,8 +2,6 @@ import copy
 import heapq
 from collections import deque, defaultdict
 
-from graphs import Graph
-
 
 def dfs(graph, start):
 	''' Runs depth-first search from start node. yields (parent, child) for each visited node. '''

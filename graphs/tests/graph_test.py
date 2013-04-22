@@ -1,5 +1,7 @@
 import unittest
-from graphs import Graph
+
+from graphs.graphs import Graph
+
 
 class BasicGraphTest(unittest.TestCase):
 
