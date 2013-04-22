@@ -2,13 +2,16 @@ import copy
 import heapq
 from collections import deque, defaultdict
 
+from tools.edge_iter import edge_iter
+from exceptions.algoexceptions import NegativeCycle, NodeNotFound
+
 
 def unweighted_shortest_path(graph, start, end):
 	''' Returns shortest path between start and end in list.
 		If there is no path returns None. '''
 
 	if start not in graph:
-		return None
+		raise NodeNotFound("Node {0} is not in the graph!".format(start))
 	visited = set()
 	queue = deque([start])
 	pred = {}
@@ -33,6 +36,8 @@ def shortest_paths_from(graph, start, pred=None, weight_attribute='weight'):
 		accessible from start. If pred (dict) is passed, 
 		the predecessors for each node will be saved there. '''
 
+	if start not in graph:
+		raise NodeNotFound("Node {0} is not in the graph!".format(start))
 	distance = {}
 	distance[start] = 0
 	if pred is not None:
@@ -44,6 +49,10 @@ def shortest_paths_from(graph, start, pred=None, weight_attribute='weight'):
 					distance[v] = distance_u + data[weight_attribute]
 					if pred is not None:
 						pred[v] = u
+	for (u, v, attributes) in edge_iter(graph):
+		if u in distance and v in distance:
+			if distance[v] > distance[u] + attributes[weight_attribute]:
+				raise NegativeCycle("Negative cycle found!")
 	return distance
 
 
@@ -53,11 +62,6 @@ def pairs_of_shortest_paths(graph, weight_attribute='weight', infinity=65536):
 		Returns dict with shortest paths, where dict[u][v] is the length
 		of the shortest path between u and v, or infinity if there is no
 		path between them. '''
-
-	def edge_iter(graph):
-		for node in graph:
-			for other_node in graph[node]:
-				yield node, other_node, graph[node][other_node]
 
 	distance = {}
 	for node in graph:
@@ -83,6 +87,8 @@ def dijkstra(graph, start, pred=None, weight_attribute='weight'):
 		Dijkstra's algorithm WILL NOT work if there are edges
 		with negative weight! '''
 
+	if start not in graph:
+		raise NodeNotFound("Node {0} is not in the graph!".format(start))
 	distance = {start: 0}
 	heap = [(0, start)]
 	while heap:
