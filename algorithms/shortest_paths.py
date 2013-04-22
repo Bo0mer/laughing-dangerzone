@@ -89,23 +89,17 @@ def dijkstra(graph, start, pred=None, weight_attribute='weight'):
 
 	if start not in graph:
 		raise NodeNotFound("Node {0} is not in the graph!".format(start))
+	final_distance = {}
 	distance = {start: 0}
 	heap = [(0, start)]
 	while heap:
 		dv, v = heapq.heappop(heap)
-		for u in graph[v]:
-			if u not in distance:
-				distance[u] = dv + graph[v][u][weight_attribute]
-				heapq.heappush(heap, (distance[u], u))
-			else:
-				if distance[u] > dv + graph[v][u][weight_attribute]:
+		if v not in final_distance:
+			final_distance[v] = dv
+			for u in graph[v]:
+				if u not in distance or distance[u] > dv + graph[v][u][weight_attribute]:
 					distance[u] = dv + graph[v][u][weight_attribute]
-			for w in graph[u]:
-				alt = distance[u] + graph[u][w][weight_attribute]
-				if w not in distance:
-					heapq.heappush(heap, (alt, w))
-				elif alt < distance[w]:
-					distance[w] = alt
 					if pred is not None:
-						pred[w] = u
+						pred[u] = v
+					heapq.heappush(heap, (distance[u], u))
 	return distance
