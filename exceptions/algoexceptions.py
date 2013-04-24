@@ -4,3 +4,7 @@ class NegativeCycle(Exception):
 
 class NodeNotFound(Exception):
 	pass
+
+
+class NotDAG(Exception):
+	pass
