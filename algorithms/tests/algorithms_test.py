@@ -5,7 +5,7 @@ from algorithms.traversal import *
 from algorithms.connectivity import *
 from algorithms.shortest_paths import *
 from algorithms.mst import *
-
+from algorithms.eulerian import *
 
 class AlgorithmsTest(unittest.TestCase):
 
@@ -152,6 +152,19 @@ class AlgorithmsTest(unittest.TestCase):
 						 (8, 7, 6), (6, 3, 7), (6, 5, 9), 
 						 (3, 4, 15)])
 
+
+	def test_is_eulerian(self):
+		g = Graph()
+		g.add_edge(1, 2)
+		g.add_edge(2, 3)
+		g.add_edge(3, 4)
+		g.add_edge(4, 1)
+		self.assertTrue(is_eulerian(g))
+		g.add_edge(6, 7)
+		self.assertFalse(is_eulerian(g))
+		g.remove_edge(6, 7)
+		g.add_edge(1, 3)
+		self.assertFalse(is_eulerian(g))
 
 if __name__ == '__main__':
 	unittest.main()
