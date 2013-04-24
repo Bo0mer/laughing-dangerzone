@@ -1,21 +1,29 @@
-from algorithms.traversal import dfs
+from algorithms.traversal import bfs
 
 
 def connected_components(graph):
-	''' Returns the number of connected components in undirected graph. '''
-	
+	''' Yields nodes in connected components one by one. '''
+
 	if graph.is_directed():
-		pass  # should be implemented later
-	else:
-		visited = set()
-		components = 0
-		for node in graph:
-			if node not in visited:
-				components += 1
-				for parent, child in dfs(graph, node):
-					visited.update([parent, child])
-	return components
+		raise Exception("Graph must be undirected!")
+
+	visited = set()
+	for node in graph:
+		if node not in visited:
+			component = {node, }
+			for level_graph in bfs(graph, node):
+				[component.update(level) for level in level_graph.values()]
+			visited.update(component)
+			yield component
+
+
+def number_connected_components(graph):
+	''' Returns the number of connected components in the graph. '''
+	return len(list(connected_components(graph)))
 
 
 def is_connected(graph):
-	return connected_components(graph) == 1
+	''' Returns True if the graph is connected, e.g.
+	 has 1 connected component. '''
+	return number_connected_components(graph) == 1
+

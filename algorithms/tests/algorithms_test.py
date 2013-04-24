@@ -7,6 +7,7 @@ from algorithms.shortest_paths import *
 from algorithms.mst import *
 from algorithms.eulerian import *
 
+
 class AlgorithmsTest(unittest.TestCase):
 
 	def test_dfs(self):
@@ -42,19 +43,19 @@ class AlgorithmsTest(unittest.TestCase):
 	def test_connected_components(self):
 		g = Graph()
 		g.add_edge(1, 2)
-		self.assertEqual(connected_components(g), 1)
+		self.assertEqual(number_connected_components(g), 1)
 		g.add_edge(3, 2)
-		self.assertEqual(connected_components(g), 1)
+		self.assertEqual(number_connected_components(g), 1)
 		g.add_edge('Sofia', 'Varna')
-		self.assertEqual(connected_components(g), 2)
+		self.assertEqual(number_connected_components(g), 2)
 		g.add_edge('Varna', 1)
-		self.assertEqual(connected_components(g), 1)
+		self.assertEqual(number_connected_components(g), 1)
 		g.add_node('LeftAlone')
-		self.assertEqual(connected_components(g), 2)
+		self.assertEqual(number_connected_components(g), 2)
 		g.add_node('AlsoLeftAlone')
-		self.assertEqual(connected_components(g), 3)
+		self.assertEqual(number_connected_components(g), 3)
 		g.add_edge('LeftAlone', 'AlsoLeftAlone')
-		self.assertEqual(connected_components(g), 2)
+		self.assertEqual(number_connected_components(g), 2)
 
 	def test_unweighted_shortest_path(self):
 		g = Graph()
@@ -152,7 +153,6 @@ class AlgorithmsTest(unittest.TestCase):
 						 (8, 7, 6), (6, 3, 7), (6, 5, 9), 
 						 (3, 4, 15)])
 
-
 	def test_is_eulerian(self):
 		g = Graph()
 		g.add_edge(1, 2)
@@ -165,6 +165,7 @@ class AlgorithmsTest(unittest.TestCase):
 		g.remove_edge(6, 7)
 		g.add_edge(1, 3)
 		self.assertFalse(is_eulerian(g))
+
 
 if __name__ == '__main__':
 	unittest.main()
