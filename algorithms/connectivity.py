@@ -1,3 +1,5 @@
+from collections import deque
+
 from algorithms.traversal import bfs
 
 
@@ -19,11 +21,52 @@ def connected_components(graph):
 
 def number_connected_components(graph):
     ''' Returns the number of connected components in the graph. '''
-    return len(list(connected_components(graph)))
+    if graph.is_directed():
+        return len(strongly_connected_components(graph))
+    else:
+        return len(list(connected_components(graph)))
 
 
 def is_connected(graph):
     ''' Returns True if the graph is connected, e.g.
-     has 1 connected component. '''
+     has 1 (strongly) connected component. '''
     return number_connected_components(graph) == 1
 
+
+def strongly_connected_components(graph):
+    ''' Returns list of sets, with each connected component's
+    nodes. Graph must be directed. '''
+
+    if not graph.is_directed():
+        raise Exception('Graph must be directed!')
+    
+    index = [0]
+    indexes = {}
+    low_level = {}
+    stack = deque()
+    components = []
+    
+    def strongly_connect(v):
+        indexes[v] = index[0]
+        low_level[v] = index[0]
+        index[0] = index[0] + 1
+        stack.append(v)
+        for w in graph[v]:
+            if w not in indexes:
+                strongly_connect(w)
+                low_level[v] = min(low_level[v], low_level[w])
+            elif w in stack:
+                low_level[v] = min(low_level[v], indexes[w])
+        if low_level[v] == indexes[v]:
+            scc = set()
+            while True:
+                w = stack.pop()
+                scc.add(w)
+                if w == v:
+                    components.append(scc)
+                    break
+            
+    for node in graph:
+        if node not in indexes:
+            strongly_connect(node)
+    return components

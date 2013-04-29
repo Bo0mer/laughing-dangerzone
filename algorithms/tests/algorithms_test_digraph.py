@@ -5,6 +5,8 @@ from algorithms.traversal import *
 from algorithms.connectivity import *
 from algorithms.shortest_paths import *
 from algorithms.mst import *
+from algorithms.max_path import *
+
 
 class DiAlgorithmsTest(unittest.TestCase):
 
@@ -109,6 +111,42 @@ class DiAlgorithmsTest(unittest.TestCase):
         g.add_edge(2, 5, weight=17)
         g.add_node(1)
         self.assertEqual(dijkstra(g, 1), {1: 0})
+
+    def test_strongly_connected_components(self):
+        g = DiGraph()
+        g.add_edge(1, 2)
+        g.add_edge(2, 3)
+        g.add_edge(3, 1)
+        g.add_edge(3, 4)
+        g.add_edge(4, 5)
+        g.add_edge(5, 4)
+        g.add_edge(5, 6)
+        g.add_edge(6, 7)
+        g.add_edge(7, 6)
+        sccs = [{1, 2, 3}, {4, 5}, {6, 7}]
+        sccs_result = strongly_connected_components(g)
+        self.assertEqual(len(sccs), len(sccs_result))
+        for scc in sccs:
+            self.assertTrue(scc in sccs_result)
+
+    def test_max_path(self):
+        g = DiGraph()
+        g.add_edge(1, 3, w=3)
+        g.add_edge(2, 3, w=5)
+        g.add_edge(3, 5, w=11)
+        g.add_edge(3, 4, w=8)
+        g.add_edge(5, 6, w=12)
+        g.add_edge(4, 7, w=16)
+        g.add_edge(5, 7, w=14)
+        g.add_edge(4, 6, w=18)
+        g.add_edge(6, 8, w=21)
+        g.add_edge(4, 7, w=16)
+        g.add_edge(7, 8, w=16)
+        g.add_edge(8, 10, w=7)
+        g.add_edge(8, 9, w=5)
+        distance, pred = max_path(g, weight_attribute='w')
+        self.assertEqual(59, max(distance.values()))
+
 
 if __name__ == '__main__':
     unittest.main()
