@@ -1,6 +1,7 @@
 from collections import deque
 
 from algorithms.toposort import toposort
+from exceptions.algoexceptions import NegativeEdgeWeight
 
 
 def max_path(graph, weight_attribute):
@@ -19,6 +20,8 @@ def max_path(graph, weight_attribute):
         while stack:
             u = stack.pop()
             for v in graph[u]:
+                if graph[u][v][weight_attribute] < 0:
+                    raise NegativeEdgeWeight('Negative edge weight found!')
                 if distance[v] < distance[u] + graph[u][v][weight_attribute]:
                     distance[v] = distance[u] + graph[u][v][weight_attribute]
                     predecessor[v] = u

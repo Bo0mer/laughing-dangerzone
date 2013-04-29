@@ -1,13 +1,14 @@
 from collections import deque
 
 from algorithms.traversal import bfs
+from exceptions.algoexceptions import NotDiGraph, NotUndirectedGraph
 
 
 def connected_components(graph):
     ''' Yields nodes in connected components one by one. '''
 
     if graph.is_directed():
-        raise Exception("Graph must be undirected!")
+        raise NotUndirectedGraph("Graph must be undirected!")
 
     visited = set()
     for node in graph:
@@ -38,7 +39,7 @@ def strongly_connected_components(graph):
     nodes. Graph must be directed. '''
 
     if not graph.is_directed():
-        raise Exception('Graph must be directed!')
+        raise NotDiGraph('Graph must be directed!')
     
     index = [0]
     indexes = {}
