@@ -31,29 +31,26 @@ def unweighted_shortest_path(graph, start, end):
                 pred[adj_node] = current_node
 
 
-def shortest_paths_from(graph, start, pred=None, weight_attribute='weight'):
+def shortest_paths_from(graph, start, weight_attribute='weight'):
     ''' Returns dict with shortest paths from start to each node,
         accessible from start. If pred (dict) is passed, 
         the predecessors for each node will be saved there. '''
 
     if start not in graph:
         raise NodeNotFound("Node {0} is not in the graph!".format(start))
-    distance = {}
-    distance[start] = 0
-    if pred is not None:
-        pred[start] = None
+    distance = {start: 0}
+    predecessors = {start: None}
     for i in range(0, graph.order()):
         for u, distance_u in list(distance.items()):
             for v, data in graph[u].items():
                 if v not in distance or distance[v] > distance_u + data[weight_attribute]:
                     distance[v] = distance_u + data[weight_attribute]
-                    if pred is not None:
-                        pred[v] = u
+                    predecessors[v] = u
     for (u, v, attributes) in edge_iter(graph):
         if u in distance and v in distance:
             if distance[v] > distance[u] + attributes[weight_attribute]:
                 raise NegativeCycle("Negative cycle found!")
-    return distance
+    return (predecessors, distance)
 
 
 def pairs_of_shortest_paths(graph, weight_attribute='weight', infinity=65536):
@@ -79,7 +76,7 @@ def pairs_of_shortest_paths(graph, weight_attribute='weight', infinity=65536):
     return dict(distance)
 
 
-def dijkstra(graph, start, pred=None, weight_attribute='weight'):
+def dijkstra(graph, start, weight_attribute='weight'):
     ''' Dijkstra's algorithm.
         Returns dict with shortest paths from start to each node,
         accessible from start. If pred (dict) is passed, 
@@ -91,6 +88,7 @@ def dijkstra(graph, start, pred=None, weight_attribute='weight'):
         raise NodeNotFound("Node {0} is not in the graph!".format(start))
     final_distance = {}
     distance = {start: 0}
+    predecessors = {start: None}
     heap = [(0, start)]
     while heap:
         dv, v = heapq.heappop(heap)
@@ -99,7 +97,6 @@ def dijkstra(graph, start, pred=None, weight_attribute='weight'):
             for u in graph[v]:
                 if u not in distance or distance[u] > dv + graph[v][u][weight_attribute]:
                     distance[u] = dv + graph[v][u][weight_attribute]
-                    if pred is not None:
-                        pred[u] = v
+                    predecessors[u] = v
                     heapq.heappush(heap, (distance[u], u))
-    return distance
+    return (predecessors, distance)

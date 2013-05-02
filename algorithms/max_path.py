@@ -4,7 +4,7 @@ from algorithms.toposort import toposort
 from exceptions.algoexceptions import NegativeEdgeWeight
 
 
-def max_path(graph, weight_attribute):
+def max_path(graph, weight_attribute='weight'):
     """ Finds all max-paths within DAG with NO NEGATIVE WEIGHTS.
         Returns two dicts - distance, predecessor. distance[node]
         is the max-path's length, predecessor[node] is the node's
@@ -13,7 +13,7 @@ def max_path(graph, weight_attribute):
     toposort(graph)
 
     distance = {node: 0 for node in graph}
-    predecessor = {}
+    predecessors = {}
 
     def visit(node):
         stack = deque([node])
@@ -24,10 +24,10 @@ def max_path(graph, weight_attribute):
                     raise NegativeEdgeWeight('Negative edge weight found!')
                 if distance[v] < distance[u] + graph[u][v][weight_attribute]:
                     distance[v] = distance[u] + graph[u][v][weight_attribute]
-                    predecessor[v] = u
+                    predecessors[v] = u
                 stack.append(v)
 
     for node in graph:
         if distance[node] == 0:
             visit(node)
-    return (distance, predecessor)
+    return (predecessors, distance)

@@ -85,8 +85,10 @@ class AlgorithmsTest(unittest.TestCase):
         g.add_edge('Lisbon', 'Sidney', weight=12000)
 
         self.assertEqual(shortest_paths_from(g, 'Sofia'),
+                    ({'Chicago': 'Sofia', 'London': 'Sofia',
+                     'Sofia': None, 'New York': 'Chicago'},
                     {'London': 2500, 'New York': 9975,
-                     'Chicago': 9000, 'Sofia': 0})
+                     'Chicago': 9000, 'Sofia': 0}))
 
     def test_shortest_paths_from_without_path(self):
         g = Graph()
@@ -95,7 +97,7 @@ class AlgorithmsTest(unittest.TestCase):
         g.add_edge('Sofia', 'Lisbon', weight=10000)
         g.add_node('Pernik')
         self.assertEqual(shortest_paths_from(g, 'Pernik'),
-                    {'Pernik': 0})
+                    ({'Pernik': None}, {'Pernik': 0}))
 
     def test_dijkstra(self):
         g = Graph()
@@ -108,8 +110,10 @@ class AlgorithmsTest(unittest.TestCase):
         g.add_edge(4, 5, weight=6)
         g.add_edge(3, 6, weight=10)
         self.assertEqual(dijkstra(g, 1),
+                        ({1: None, 2: 1, 3: 2,
+                         4: 2, 5: 4, 6: 3},
                         {1: 0, 2: 5, 3: 15,
-                         4: 20, 5: 26, 6: 25})
+                         4: 20, 5: 26, 6: 25}))
 
     def test_dijkstra_with_no_path(self):
         g = Graph()
@@ -117,7 +121,7 @@ class AlgorithmsTest(unittest.TestCase):
         g.add_edge(3, 5, weight=5)
         g.add_edge(2, 5, weight=17)
         g.add_node(1)
-        self.assertEqual(dijkstra(g, 1), {1: 0})
+        self.assertEqual(dijkstra(g, 1), ({1: None}, {1: 0}))
 
 
     def test_mst_prim_sum(self):

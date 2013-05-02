@@ -21,7 +21,8 @@ def connected_components(graph):
 
 
 def number_connected_components(graph):
-    ''' Returns the number of connected components in the graph. '''
+    ''' Returns the number of (strongly)
+    connected components in the graph. '''
     if graph.is_directed():
         return len(strongly_connected_components(graph))
     else:
@@ -30,7 +31,7 @@ def number_connected_components(graph):
 
 def is_connected(graph):
     ''' Returns True if the graph is connected, e.g.
-     has 1 (strongly) connected component. '''
+    has 1 (strongly) connected component. '''
     return number_connected_components(graph) == 1
 
 

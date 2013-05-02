@@ -64,7 +64,8 @@ class DiAlgorithmsTest(unittest.TestCase):
         g.add_edge('Lisbon', 'Sidney', weight=12000)
 
         self.assertEqual(shortest_paths_from(g, 'Sofia'),
-                    {'New York': 9975, 'Chicago': 9000, 'Sofia': 0})
+                    ({'Sofia': None, 'Chicago': 'Sofia', 'New York': 'Chicago'},
+                    {'New York': 9975, 'Chicago': 9000, 'Sofia': 0}))
 
     def test_shortest_patsh_from_with_negative_edge(self):
         g = DiGraph()
@@ -79,7 +80,8 @@ class DiAlgorithmsTest(unittest.TestCase):
         g.add_edge(3, 1, w=7)
         g.add_edge(3, 5, w=7)
         self.assertEqual(shortest_paths_from(g, 1, weight_attribute='w'),
-                        {1: 0, 2: 7, 3: -2, 4: 2, 5: 4})
+                        ({1: None, 2: 1, 3: 4, 4: 5, 5: 2},
+                        {1: 0, 2: 7, 3: -2, 4: 2, 5: 4}))
 
     def test_shortest_paths_from_without_path(self):
         g = DiGraph()
@@ -88,7 +90,7 @@ class DiAlgorithmsTest(unittest.TestCase):
         g.add_edge('Sofia', 'Lisbon', weight=10000)
         g.add_node('Pernik')
         self.assertEqual(shortest_paths_from(g, 'Pernik'),
-                    {'Pernik': 0})
+                     ({'Pernik': None}, {'Pernik': 0}))
 
     def test_dijkstra(self):
         g = DiGraph()
@@ -102,7 +104,8 @@ class DiAlgorithmsTest(unittest.TestCase):
         g.add_edge('D', 'E', w=7)
         g.add_edge('E', 'D', w=4)
         self.assertEqual(dijkstra(g, 'A', weight_attribute='w'),
-                {'E': 17, 'D': 11, 'A': 0, 'C': 12, 'B': 10})
+            ({'A': None, 'B': 'A', 'C': 'B', 'D': 'B', 'E': 'C'},
+             {'E': 17, 'D': 11, 'A': 0, 'C': 12, 'B': 10}))
 
     def test_dijkstra_with_no_path(self):
         g = DiGraph()
@@ -110,7 +113,7 @@ class DiAlgorithmsTest(unittest.TestCase):
         g.add_edge(3, 5, weight=5)
         g.add_edge(2, 5, weight=17)
         g.add_node(1)
-        self.assertEqual(dijkstra(g, 1), {1: 0})
+        self.assertEqual(dijkstra(g, 1), ({1: None}, {1: 0}))
 
     def test_strongly_connected_components(self):
         g = DiGraph()
@@ -144,8 +147,11 @@ class DiAlgorithmsTest(unittest.TestCase):
         g.add_edge(7, 8, w=16)
         g.add_edge(8, 10, w=7)
         g.add_edge(8, 9, w=5)
-        distance, pred = max_path(g, weight_attribute='w')
+        pred, distance = max_path(g, weight_attribute='w')
         self.assertEqual(59, max(distance.values()))
+        self.assertEqual(pred,
+                        {3: 2, 4: 3, 5: 3, 6: 4,
+                         7: 5, 8: 6, 9: 8, 10: 8})
 
 
 if __name__ == '__main__':
