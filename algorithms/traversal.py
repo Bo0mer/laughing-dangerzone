@@ -4,7 +4,9 @@ from exceptions.algoexceptions import NodeNotFound
 
 
 def dfs(graph, start):
-    ''' Runs depth-first search from start node. yields (parent, child) for each visited node. '''
+    ''' Runs depth-first search from start node. yields
+    (parent, child) for each visited node. Each node
+    will bi visited only once. '''
 
     if start not in graph:
         raise NodeNotFound(
@@ -23,8 +25,10 @@ def dfs(graph, start):
 
 
 def bfs(graph, start):
-    ''' Runs breadth-first serach from start node. yeilds {node: {child_node, child_node2},
-    other_node: {o_child_node, o_child_node2}} '''
+    ''' Runs breadth-first serach from start node. yeilds
+    level = {node: {child_node, child_node2},
+    other_node: {o_child_node, o_child_node2}}. Each node
+    will be visited only once. '''
 
     if start not in graph:
         raise NodeNotFound(
