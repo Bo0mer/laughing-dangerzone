@@ -6,9 +6,9 @@ from exceptions.algoexceptions import NegativeEdgeWeight
 
 def max_path(graph, weight_attribute='weight'):
     """ Finds all max-paths within DAG with NO NEGATIVE WEIGHTS.
-        Returns two dicts - distance, predecessor. distance[node]
-        is the max-path's length, predecessor[node] is the node's
-        predecessor in the max-path. """
+        Returns (predecessors, distance). distance[node] is the
+        max-path's length ending in node, predecessors[node] is
+        the node's predecessor in the max-path. """
 
     toposort(graph)
 
