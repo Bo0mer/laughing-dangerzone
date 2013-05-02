@@ -11,7 +11,9 @@ def unweighted_shortest_path(graph, start, end):
         If there is no path returns None. '''
 
     if start not in graph:
-        raise NodeNotFound("Node {0} is not in the graph!".format(start))
+        raise NodeNotFound(
+            "Node {0} is not in the graph!".format(start))
+    
     visited = set()
     queue = deque([start])
     pred = {}
@@ -37,7 +39,9 @@ def shortest_paths_from(graph, start, weight_attribute='weight'):
         the predecessors for each node will be saved there. '''
 
     if start not in graph:
-        raise NodeNotFound("Node {0} is not in the graph!".format(start))
+        raise NodeNotFound(
+            "Node {0} is not in the graph!".format(start))
+
     distance = {start: 0}
     predecessors = {start: None}
     for i in range(0, graph.order()):
@@ -85,7 +89,9 @@ def dijkstra(graph, start, weight_attribute='weight'):
         with negative weight! '''
 
     if start not in graph:
-        raise NodeNotFound("Node {0} is not in the graph!".format(start))
+        raise NodeNotFound(
+            "Node {0} is not in the graph!".format(start))
+
     final_distance = {}
     distance = {start: 0}
     predecessors = {start: None}
