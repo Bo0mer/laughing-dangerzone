@@ -34,9 +34,10 @@ def unweighted_shortest_path(graph, start, end):
 
 
 def shortest_paths_from(graph, start, weight_attribute='weight'):
-    ''' Returns dict with shortest paths from start to each node,
-        accessible from start. If pred (dict) is passed, 
-        the predecessors for each node will be saved there. '''
+    ''' Returns (predecessors, distance). predecessors[node]
+    is the predecessor of node in the shortest path,
+    distance[node] is the shortest-path's lenght to node. No
+    negative cycles allowed! '''
 
     if start not in graph:
         raise NodeNotFound(
@@ -82,11 +83,10 @@ def pairs_of_shortest_paths(graph, weight_attribute='weight', infinity=65536):
 
 def dijkstra(graph, start, weight_attribute='weight'):
     ''' Dijkstra's algorithm.
-        Returns dict with shortest paths from start to each node,
-        accessible from start. If pred (dict) is passed, 
-        the predecessors for each node will be saved there.
-        Dijkstra's algorithm WILL NOT work if there are edges
-        with negative weight! '''
+        Returns (predecessors, distance). predecessors[node]
+        is the predecessor of node in the shortest path,
+        distance[node] is the shortest-path's lenght to node.
+        No negative edge-weights are allowed! '''
 
     if start not in graph:
         raise NodeNotFound(
