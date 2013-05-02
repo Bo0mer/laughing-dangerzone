@@ -6,6 +6,7 @@ from algorithms.connectivity import *
 from algorithms.shortest_paths import *
 from algorithms.mst import *
 from algorithms.max_path import *
+from algorithms.eulerian import *
 
 
 class DiAlgorithmsTest(unittest.TestCase):
@@ -152,6 +153,19 @@ class DiAlgorithmsTest(unittest.TestCase):
         self.assertEqual(pred,
                         {3: 2, 4: 3, 5: 3, 6: 4,
                          7: 5, 8: 6, 9: 8, 10: 8})
+
+    def test_is_eulerian(self):
+        g = DiGraph()
+        g.add_edge(1, 2)
+        g.add_edge(2, 3)
+        g.add_edge(3, 4)
+        g.add_edge(4, 1)
+        self.assertTrue(is_eulerian(g))
+        g.add_edge(6, 7)
+        self.assertFalse(is_eulerian(g))
+        g.remove_edge(6, 7)
+        g.add_edge(1, 3)
+        self.assertFalse(is_eulerian(g))
 
 
 if __name__ == '__main__':
