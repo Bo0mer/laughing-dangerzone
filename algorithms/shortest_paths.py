@@ -4,33 +4,28 @@ from collections import deque, defaultdict
 
 from tools.edge_iter import edge_iter
 from exceptions.algoexceptions import NegativeCycle, NodeNotFound
+from algorithms.traversal import bfs
 
 
-def unweighted_shortest_path(graph, start, end):
-    ''' Returns shortest path between start and end in list.
-        If there is no path returns None. '''
+def unweighted_shortest_paths(graph, start, edge_weight=1):
+    ''' Returns (predecessors, distance). predecessors[node]
+    is the node's predecessor in the shortest path.
+    distance[node] is the length of the path, where each
+    crossed edge adds edge_weight=1 to the distance. '''
 
     if start not in graph:
         raise NodeNotFound(
             "Node {0} is not in the graph!".format(start))
-    
-    visited = set()
-    queue = deque([start])
-    pred = {}
-    while queue:
-        current_node = queue.popleft()
-        visited.add(current_node)
-        for adj_node in graph[current_node]:
-            if adj_node == end:
-                reversed_path = [end, current_node]
-                node_iter = copy.copy(current_node)
-                while node_iter in pred:
-                    reversed_path.append(pred[node_iter])
-                    node_iter = pred[node_iter]
-                return reversed_path[::-1]
-            elif adj_node not in visited:
-                queue.append(adj_node)
-                pred[adj_node] = current_node
+
+    predecessors, distance = {start: None}, {start: 0}
+
+    for level_graph in bfs(graph, start):
+        for parent in level_graph:
+            for child in level_graph[parent]:
+                predecessors[child] = parent
+                distance[child] = distance[parent] + edge_weight
+
+    return (predecessors, distance)
 
 
 def shortest_paths_from(graph, start, weight_attribute='weight'):

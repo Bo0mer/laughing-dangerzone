@@ -32,7 +32,7 @@ class DiAlgorithmsTest(unittest.TestCase):
                         {2: {3, 4}},
                         {3: set(), 4: set()}])
 
-    def test_unweighted_shortest_path(self):
+    def test_unweighted_shortest_paths(self):
         g = DiGraph()
         g.add_edge(1, 2)
         g.add_edge(2, 6)
@@ -42,19 +42,11 @@ class DiAlgorithmsTest(unittest.TestCase):
         g.add_edge(4, 8)
         g.add_edge(8, 666)
         g.add_edge(666, 12)
-        self.assertEqual(unweighted_shortest_path(g, 1, 12),
-                        [1, 2, 6, 12])
-
-    def test_unweighted_shortest_path_without_path(self):
-        g = DiGraph()
-        g.add_edge(1, 3)
-        g.add_edge(3, 5)
-        g.add_edge(5, 12)
-        g.add_edge(1, 7)
-        g.add_edge(7, 12)
-        g.add_edge(1, 12)
-        self.assertEqual(unweighted_shortest_path(g, 12, 1),
-                        None)
+        self.assertEqual(unweighted_shortest_paths(g, 1),
+                        ({1: None, 2: 1, 4: 1, 6: 2,
+                         8: 4, 666: 8, 12: 6},
+                         {1: 0, 2: 1, 4: 1, 6: 2,
+                          8: 2, 666: 3, 12: 3}))
 
     def test_shortest_paths_from(self):
         g = DiGraph()
