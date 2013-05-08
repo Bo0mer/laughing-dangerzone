@@ -3,7 +3,7 @@ import heapq
 from exceptions.algoexceptions import NodeNotFound, NotUndirectedGraph
 
 
-def mst_prim(graph, start=None, weight_attribute='weight'):
+def mst_prim(graph, start, weight_attribute='weight'):
     ''' Yields (parent, child, weight) for each edge added
         to the minimum spanning tree. Note that there could
         be more than one such trees! Only for undirected graphs. '''
@@ -11,7 +11,7 @@ def mst_prim(graph, start=None, weight_attribute='weight'):
     if graph.is_directed():
         raise NotUndirectedGraph('Graph must be undirected!')
 
-    if start != None and start not in graph:
+    if start not in graph:
         raise NodeNotFound(
             "Node {0} is not in the graph!".format(start))
 
