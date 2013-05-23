@@ -28,7 +28,7 @@ def is_bipartite(graph):
             if v not in color:
                 color[v] = not color[u]
                 stack.append(v)
-            elif color[v] and color[u]:
+            elif color[v] == color[u]:
                 return None
 
     sets = _groupby(lambda x: color[x], color)
