@@ -9,6 +9,7 @@ from algorithms.tests.connectivity_test import *
 from algorithms.tests.max_path_test import *
 from algorithms.tests.eulerian_test import *
 from algorithms.tests.bipartiteness_test import *
+from algorithms.tests.base_test import *
 
 
 unittest.main()
