@@ -54,22 +54,24 @@ def tree_isomorphism(tree_one, root_one, tree_two, root_two):
 def centers(tree):
     ''' Finds the center(s) of a tree. Note that
         tree might have one or two center(s)!!! '''
-    centers = set()
-    is_odd = lambda x: x % 2
-    start = next(tree.__iter__())
-    for last in bfs(tree, start):
-        pass
-    v = next(iter(last))
-    for path_len, last in enumerate(bfs(tree, v)):
-        pass
-    u = next(iter(last))
-    for steps, tree_level in enumerate(bfs(tree, u)):
-        if steps == path_len // 2:
-            centers.add(next(iter(tree_level)))
-        if steps == path_len // 2 + 1:
-            if is_odd(path_len):
-                centers.add(next(iter(tree_level)))
-            return centers
+    last_removed = set()
+    nodes_left = tree.order()
+    center_degree = {}
+    for v in tree:
+        center_degree[v] = tree.degree(v)
+        if tree.degree(v) <= 1:
+            last_removed.add(v)
+            nodes_left = nodes_left - 1
+    while nodes_left:
+        to_remove = set()
+        for v in last_removed:
+            for u in tree[v]:
+                center_degree[u] = center_degree[u] - 1
+                if center_degree[u] == 1:
+                    to_remove.add(u)
+                    nodes_left = nodes_left - 1
+        last_removed = to_remove
+    return last_removed
 
 
 def unrooted_tree_isomorphism(tree_one, tree_two):

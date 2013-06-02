@@ -60,7 +60,7 @@ class TreesTest(unittest.TestCase):
         self.tree_two.remove_edge(6, 666)
 
     def test_centers(self):
-        self.assertEqual(centers(self.tree_one), {1, 2})
+        self.assertEqual(centers(self.tree_one), {1, 3})
         self.assertEqual(centers(self.tree_two), {1, 2})
         tree = Graph()
         tree.add_edge(1, 2)
