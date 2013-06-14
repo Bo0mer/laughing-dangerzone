@@ -2,6 +2,7 @@ from collections import deque
 
 from algorithms.traversal import bfs
 from algorithms.trees.trees import _get_children
+from exceptions.algoexceptions import NotUndirectedGraph
 
 
 def max_independent_set(tree, root, weight_attribute='w'):
@@ -10,6 +11,9 @@ def max_independent_set(tree, root, weight_attribute='w'):
         weight_attribute attribute. Returns (|MIS|, {MIS}),
         where |MIS| is the total weight of nodes in the
         set and {MIS} is the set of nodes. '''
+
+    if tree.is_directed():
+        raise NotUndirectedGraph("Tree must be undirected graph!")
 
     f_plus, f_minus = {}, {}
     max_set = set()

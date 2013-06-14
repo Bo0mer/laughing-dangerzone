@@ -1,6 +1,7 @@
 from collections import defaultdict
 
 from algorithms.trees.trees import _get_children
+from exceptions.algoexceptions import NotUndirectedGraph
 
 
 def _tuple_sort(tuples):
@@ -58,6 +59,9 @@ def _assign_level_labels(tree, root):
 def are_isomorphic(tree_one, root_one, tree_two, root_two):
     ''' Returns true if tree_one is isomorphic to tree_two,
         when rooting every tree in it's root '''
+
+    if tree_one.is_directed() or tree_two.is_directed():
+        raise NotUndirectedGraph("Trees must be undirected graphs!")
 
     t_one = _assign_level_labels(tree_one, root_one)
     t_two = _assign_level_labels(tree_two, root_two)  

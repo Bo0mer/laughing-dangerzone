@@ -1,6 +1,13 @@
+from exceptions.algoexceptions import NotUndirectedGraph
+
+
 def centers(tree):
     ''' Finds the center(s) of a tree. Note that
         tree might have one or two center(s)!!! '''
+
+    if tree.is_directed():
+        raise NotUndirectedGraph("Tree must be undirected graph!")
+
     last_removed = set()
     nodes_left = tree.order()
     center_degree = {}
