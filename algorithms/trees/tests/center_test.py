@@ -1,10 +1,10 @@
 import unittest
 
 from graphs.graphs import Graph
-from algorithms.trees.trees import *
+from algorithms.trees.center import centers
 
 
-class TreesTest(unittest.TestCase):
+class CenterTest(unittest.TestCase):
     def setUp(self):
         self.tree_one = Graph()
         g = self.tree_one
@@ -32,12 +32,19 @@ class TreesTest(unittest.TestCase):
         del self.tree_one
         del self.tree_two
 
-    def test_is_tree(self):
-        self.assertTrue(is_tree(self.tree_one))
-        self.assertTrue(is_tree(self.tree_two))
-        graph = Graph()
-        graph.add_edge(1, 1)
-        self.assertFalse(is_tree(graph))
-        graph.add_edge(1, 2)
-        graph.add_edge(2, 3)
-        self.assertFalse(is_tree(graph))
+    def test_centers(self):
+        self.assertEqual(centers(self.tree_one), {1, 3})
+        self.assertEqual(centers(self.tree_two), {1, 2})
+        tree = Graph()
+        tree.add_edge(1, 2)
+        tree.add_edge(2, 3)
+        self.assertEqual(centers(tree), {2,})
+
+    def test_centers_one_node_tree(self):
+        tree = Graph()
+        tree.add_node(1)
+        self.assertEqual(centers(tree), {1,})
+
+    def test_centers_empty_tree(self):
+        tree = Graph()
+        self.assertEqual(centers(tree), set())

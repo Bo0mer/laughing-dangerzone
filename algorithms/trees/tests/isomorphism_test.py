@@ -1,7 +1,7 @@
 import unittest
 
 from graphs.graphs import Graph
-from algorithms.trees.trees import *
+from algorithms.trees.isomorphism import are_isomorphic
 
 
 class TreesTest(unittest.TestCase):
@@ -32,12 +32,12 @@ class TreesTest(unittest.TestCase):
         del self.tree_one
         del self.tree_two
 
-    def test_is_tree(self):
-        self.assertTrue(is_tree(self.tree_one))
-        self.assertTrue(is_tree(self.tree_two))
-        graph = Graph()
-        graph.add_edge(1, 1)
-        self.assertFalse(is_tree(graph))
-        graph.add_edge(1, 2)
-        graph.add_edge(2, 3)
-        self.assertFalse(is_tree(graph))
+    def test_are_isomorphic(self):
+        self.assertTrue(are_isomorphic(
+                        self.tree_one, 1,
+                        self.tree_two, 1))
+
+    def test_are_isomorphic_false(self):
+        self.assertFalse(are_isomorphic(
+                        self.tree_one, 1,
+                        self.tree_two, 3))
