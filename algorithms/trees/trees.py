@@ -1,5 +1,3 @@
-from collections import deque
-
 from algorithms.traversal import bfs
 from algorithms.connectivity import is_connected
 
