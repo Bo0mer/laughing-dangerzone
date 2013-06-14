@@ -1,7 +1,7 @@
 import unittest
 
 from graphs.graphs import Graph
-from algorithms.trees import *
+from algorithms.trees.trees import *
 
 
 class TreesTest(unittest.TestCase):
