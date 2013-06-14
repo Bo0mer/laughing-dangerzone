@@ -46,6 +46,7 @@ def strongly_connected_components(graph):
     indexes = {}
     low_level = {}
     stack = deque()
+    set_stack = set()
     components = []
     
     def strongly_connect(v):
@@ -53,16 +54,18 @@ def strongly_connected_components(graph):
         low_level[v] = index[0]
         index[0] = index[0] + 1
         stack.append(v)
+        set_stack.add(v)
         for w in graph[v]:
             if w not in indexes:
                 strongly_connect(w)
                 low_level[v] = min(low_level[v], low_level[w])
-            elif w in stack:
+            elif w in set_stack:
                 low_level[v] = min(low_level[v], indexes[w])
         if low_level[v] == indexes[v]:
             scc = set()
             while True:
                 w = stack.pop()
+                set_stack.remove(w)
                 scc.add(w)
                 if w == v:
                     components.append(scc)
