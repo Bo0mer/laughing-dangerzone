@@ -37,3 +37,8 @@ class BuilderTest(unittest.TestCase):
     def test_build_graph_fail(self):
         with self.assertRaises(InvalidDegreeSequence):
             build_graph([-3, 100, 566])
+
+    def test_build_graph_only_nodes(self):
+        graph = build_graph([0, 0, 0, 0], ['a', 'b', 'c', 'd'])
+        self.assertEqual(graph.size(), 0)
+        self.assertEqual(graph.order(), 4)
