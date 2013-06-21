@@ -14,6 +14,7 @@ from algorithms.trees.tests.trees_test import *
 from algorithms.trees.tests.mis_test import *
 from algorithms.trees.tests.center_test import *
 from algorithms.trees.tests.isomorphism_test import *
+from tools.tests.builder_test import *
 
 
 unittest.main()

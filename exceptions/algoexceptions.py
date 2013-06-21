@@ -11,12 +11,16 @@ class NotDAG(Exception):
 
 
 class NegativeEdgeWeight(Exception):
-	pass
+    pass
 
 
 class NotDiGraph(Exception):
-	pass
+    pass
 
 
 class NotUndirectedGraph(Exception):
-	pass
+    pass
+
+
+class InvalidDegreeSequence(Exception):
+    pass
