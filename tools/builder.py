@@ -2,6 +2,7 @@ from collections import deque
 from itertools import islice, count
 
 from graphs.graphs import Graph
+from graphs.digraphs import DiGraph
 from exceptions.algoexceptions import InvalidDegreeSequence
 
 
