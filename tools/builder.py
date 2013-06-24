@@ -17,7 +17,7 @@ def is_valid_degree_sequence(degree_sequence):
     if any(filter(lambda x: x < 0, degree_sequence)):
         return False
 
-    odd_degrees = sum([degree % 2 for degree in degree_sequence])
+    odd_degrees = sum(degree % 2 for degree in degree_sequence)
     if odd_degrees % 2 == 1:
         return False
 
