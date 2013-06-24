@@ -56,3 +56,83 @@ def build_graph(degree_sequence, nodes=None):
             other_dn[0] -= 1
 
     return graph
+
+
+def _positive_order(degree_sequence):
+    ''' Returns positive lexicographical ordering
+        of degree_sequence. '''
+    return sorted(degree_sequence, reverse=True)
+
+
+def _check_positive_inequality(degree_sequence, k):
+    ''' Checks Fulkerson theorem's inequality for specified k. '''
+    lhs = 0
+    for degree in degree_sequence[1:k+1]:
+        lhs += min(degree[1], k-1)
+    for degree in degree_sequence[k+1:]:
+        lhs += min(degree[1], k)
+
+    rhs = sum(degree[0] for degree in degree_sequence[1:k+1])
+
+    return lhs >= rhs
+
+
+def is_valid_directed_degree_sequence(degree_sequence):
+    ''' Returns True if the specified degree sequence
+        (out, in) is digraphical. '''
+
+    pos_order = _positive_order(degree_sequence)
+    n = len(degree_sequence) + 1
+
+    if not all(_check_positive_inequality(pos_order, k)
+                for k in range(n)):
+        return False
+
+    if (sum(deg[0] for deg in degree_sequence) !=
+        sum(deg[1] for deg in degree_sequence)):
+        return False
+
+    return True
+
+
+def build_digraph(degree_sequence, nodes=None):
+    ''' Generates directed graph of the given degree
+        sequence (out, in). If nodes are provided, each
+        node will have the corresponding data. '''
+
+    if not is_valid_directed_degree_sequence(degree_sequence):
+        raise InvalidDegreeSequence('Invalid degree sequence!')
+
+    graph = DiGraph()
+    degree_node = []
+
+    if not nodes:
+        nodes = count()
+
+    for item in map(lambda x, z: [x[0], x[1], z], degree_sequence, nodes):
+        degree_node.append(item)
+
+    degree_node.sort(key=lambda x: x[1], reverse=True)
+    degree_node.sort(key=lambda x: x[0], reverse=True)
+
+    degree_node = deque(degree_node)
+
+    while degree_node:
+        out_degree, in_degree, node = degree_node.popleft()
+
+        if in_degree == out_degree == 0:
+            graph.add_node(node)
+            continue
+
+        for out_in_node in degree_node:
+            if out_degree == 0:
+                break
+            if out_in_node[1]:
+                out_in_node[1] -= 1
+                out_degree -= 1
+                graph.add_edge(node, out_in_node[2])
+
+        if in_degree:
+            degree_node.append([out_degree, in_degree, node])
+
+    return graph
