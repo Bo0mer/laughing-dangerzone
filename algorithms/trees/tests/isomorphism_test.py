@@ -39,5 +39,5 @@ class TreesTest(unittest.TestCase):
 
     def test_are_isomorphic_false(self):
         self.assertFalse(are_isomorphic(
-                        self.tree_one, 1,
-                        self.tree_two, 3))
+            self.tree_one, 1,
+            self.tree_two, 3))

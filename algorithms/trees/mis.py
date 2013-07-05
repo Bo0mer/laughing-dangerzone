@@ -24,10 +24,10 @@ def max_independent_set(tree, root, weight_attribute='w'):
         for u in level:
             if u in children:
                 f_plus[u] = weight(u) + sum(f_minus[v]
-                    for v in children[u])
+                                            for v in children[u])
 
                 f_minus[u] = sum(max(f_plus[v], f_minus[v])
-                    for v in children[u])
+                                 for v in children[u])
             else:
                 f_plus[u], f_minus[u] = weight(u), 0
 

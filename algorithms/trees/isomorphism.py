@@ -43,8 +43,10 @@ def _assign_level_labels(tree, root):
                         children_labels[node] = (labels[child],)
 
                 children_labels[node] = sort(children_labels[node])
-                nodes_with_label[children_labels[node]].append(node)  # map the children labels to the node
-                different_labels.add(children_labels[node])  # to compute different labels on the current level
+                # map the children labels to the node
+                nodes_with_label[children_labels[node]].append(node)
+                # to compute different labels on the current level
+                different_labels.add(children_labels[node])
 
         different_labels = list(different_labels)
         _tuple_sort(different_labels)
@@ -64,7 +66,7 @@ def are_isomorphic(tree_one, root_one, tree_two, root_two):
         raise NotUndirectedGraph("Trees must be undirected graphs!")
 
     t_one = _assign_level_labels(tree_one, root_one)
-    t_two = _assign_level_labels(tree_two, root_two)  
+    t_two = _assign_level_labels(tree_two, root_two)
     while True:
         try:
             if next(t_one) != next(t_two):

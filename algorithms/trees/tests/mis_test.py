@@ -39,4 +39,4 @@ class MaxIndependentSetTest(unittest.TestCase):
         t = Graph()
         t.add_node(1, p=1256)
         self.assertEqual(max_independent_set(t, 1, weight_attribute='p'),
-                        (1256, {1,}))
+                        (1256, {1, }))

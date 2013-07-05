@@ -38,12 +38,12 @@ class CenterTest(unittest.TestCase):
         tree = Graph()
         tree.add_edge(1, 2)
         tree.add_edge(2, 3)
-        self.assertEqual(centers(tree), {2,})
+        self.assertEqual(centers(tree), {2, })
 
     def test_centers_one_node_tree(self):
         tree = Graph()
         tree.add_node(1)
-        self.assertEqual(centers(tree), {1,})
+        self.assertEqual(centers(tree), {1, })
 
     def test_centers_empty_tree(self):
         tree = Graph()
