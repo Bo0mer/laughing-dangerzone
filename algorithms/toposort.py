@@ -20,5 +20,5 @@ def toposort(graph):
             sorted_order.append(u)
 
     while unvisited:
-        visit(list(unvisited)[0])       
+        visit(list(unvisited)[0])
     return sorted_order[::-1]

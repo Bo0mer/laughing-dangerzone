@@ -43,7 +43,8 @@ def shortest_paths_from(graph, start, weight_attribute='weight'):
     for i in range(0, graph.order()):
         for u, distance_u in list(distance.items()):
             for v, data in graph[u].items():
-                if v not in distance or distance[v] > distance_u + data[weight_attribute]:
+                if (v not in distance or
+                        distance[v] > distance_u + data[weight_attribute]):
                     distance[v] = distance_u + data[weight_attribute]
                     predecessors[v] = u
     for (u, v, attributes) in edge_iter(graph):
@@ -96,7 +97,8 @@ def dijkstra(graph, start, weight_attribute='weight'):
         if v not in final_distance:
             final_distance[v] = dv
             for u in graph[v]:
-                if u not in distance or distance[u] > dv + graph[v][u][weight_attribute]:
+                if (u not in distance or
+                        distance[u] > dv + graph[v][u][weight_attribute]):
                     distance[u] = dv + graph[v][u][weight_attribute]
                     predecessors[u] = v
                     heapq.heappush(heap, (distance[u], u))

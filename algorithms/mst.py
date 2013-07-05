@@ -28,5 +28,5 @@ def mst_prim(graph, start, weight_attribute='weight'):
             for w in graph[v]:
                 if w in nodes:
                     heapq.heappush(heap,
-                        (graph[v][w][weight_attribute], v, w))
+                                   (graph[v][w][weight_attribute], v, w))
             yield u, v, weight

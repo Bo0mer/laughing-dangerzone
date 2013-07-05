@@ -41,14 +41,14 @@ def strongly_connected_components(graph):
 
     if not graph.is_directed():
         raise NotDiGraph('Graph must be directed!')
-    
+
     index = [0]
     indexes = {}
     low_level = {}
     stack = deque()
     set_stack = set()
     components = []
-    
+
     def strongly_connect(v):
         indexes[v] = index[0]
         low_level[v] = index[0]
@@ -70,7 +70,7 @@ def strongly_connected_components(graph):
                 if w == v:
                     components.append(scc)
                     break
-            
+
     for node in graph:
         if node not in indexes:
             strongly_connect(node)
