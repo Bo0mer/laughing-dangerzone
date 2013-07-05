@@ -86,11 +86,11 @@ def is_valid_directed_degree_sequence(degree_sequence):
     n = len(degree_sequence) + 1
 
     if not all(_check_positive_inequality(pos_order, k)
-                for k in range(n)):
+               for k in range(n)):
         return False
 
     if (sum(deg[0] for deg in degree_sequence) !=
-        sum(deg[1] for deg in degree_sequence)):
+            sum(deg[1] for deg in degree_sequence)):
         return False
 
     return True

@@ -10,7 +10,7 @@ class BuilderTest(unittest.TestCase):
     def setUp(self):
         self.valid_degree_sequence = [3, 3, 3, 3, 3, 3, 4, 4, 4]
         self.valid_didegree_sequence = [(2, 1), (1, 1), (1, 1), (0, 1)]
-    
+
     def tearDown(self):
         del self.valid_degree_sequence
         del self.valid_didegree_sequence
@@ -31,7 +31,7 @@ class BuilderTest(unittest.TestCase):
 
     def test_build_graph(self):
         nodes = {'node' + str(k): self.valid_degree_sequence[k]
-                for k in range(9)}
+                 for k in range(9)}
         graph = build_graph(self.valid_degree_sequence, sorted(nodes))
 
         for node in graph:
@@ -57,7 +57,7 @@ class BuilderTest(unittest.TestCase):
 
     def test_build_digraph(self):
         nodes = {'node' + str(k): self.valid_didegree_sequence[k]
-                for k in range(4)}
+                 for k in range(4)}
         graph = build_digraph(self.valid_didegree_sequence, sorted(nodes))
 
         for node in graph:
