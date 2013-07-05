@@ -53,11 +53,7 @@ class BasicGraphTest(unittest.TestCase):
     def test_degree(self):
         for node in self.nodes:
             self.assertEqual(self.graph.degree(node),
-                            sum([edge.count(node) for edge in self.edges]))
+                             sum([edge.count(node) for edge in self.edges]))
 
     def test_is_directed(self):
         self.assertFalse(self.graph.is_directed())
-
-
-if __name__ == '__main__':
-    unittest.main()

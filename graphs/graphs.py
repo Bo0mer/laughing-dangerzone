@@ -20,7 +20,7 @@ class Graph:
             if node in self.adjacent[iter_node]:
                 del self.adjacent[iter_node][node]
         del self.nodes[node]
-    
+
     def add_edge(self, u, v, **kwargs):
         if u not in self.nodes:
             self.add_node(u)
@@ -50,7 +50,8 @@ class Graph:
 
     def degree(self, node):
         if node in self.adjacent:
-            return len(self.adjacent[node]) + (1 if node in self.adjacent[node] else 0)
+            return (len(self.adjacent[node]) +
+                    (1 if node in self.adjacent[node] else 0))
         return 0
 
     def degree_iter(self):
@@ -75,7 +76,3 @@ class Graph:
     def print_nodes(self):
         for node, node_attributes in self.nodes.items():
             print(node, node_attributes)
-
-
-
-

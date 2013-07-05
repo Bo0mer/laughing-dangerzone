@@ -71,6 +71,3 @@ class BasicDiGraphTest(unittest.TestCase):
         self.assertEqual(self.graph.size(), len(self.edges) + 1)
         self.graph.remove_node(100)
         self.assertEqual(self.graph.size(), len(self.edges))
-
-if __name__ == '__main__':
-    unittest.main()
