@@ -30,8 +30,8 @@ class MaxPathTest(unittest.TestCase):
         pred, distance = max_path(self.digraph, weight_attribute='w')
         self.assertEqual(59, max(distance.values()))
         self.assertEqual(pred,
-                        {3: 2, 4: 3, 5: 3, 6: 4,
-                         7: 5, 8: 6, 9: 8, 10: 8})
+                         {3: 2, 4: 3, 5: 3, 6: 4,
+                          7: 5, 8: 6, 9: 8, 10: 8})
 
     def test_max_path_graph(self):
         with self.assertRaises(NotDAG):

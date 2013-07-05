@@ -24,7 +24,7 @@ class BipartitenessTest(unittest.TestCase):
 
     def test_is_bipartite_graph(self):
         self.assertEqual(is_bipartite(self.graph),
-            ({1, 3, 5}, {2, 4, 6}))
+                         ({1, 3, 5}, {2, 4, 6}))
 
     def test_is_bipartite_not_bipartite_graph(self):
         self.graph.add_edge(1, 3)

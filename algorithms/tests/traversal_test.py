@@ -30,8 +30,8 @@ class TraversalTest(unittest.TestCase):
         del self.digraph
 
     def test_dfs_with_graph(self):
-        self.assertEqual(list(dfs(self.graph, 1)), 
-            [(1, 2), (2, 3), (2, 7), (7, 'Sofia'), (3, 5)])
+        self.assertEqual(list(dfs(self.graph, 1)),
+                         [(1, 2), (2, 3), (2, 7), (7, 'Sofia'), (3, 5)])
 
     def test_dfs_with_graph_missing_node(self):
         with self.assertRaises(NodeNotFound):
@@ -39,7 +39,7 @@ class TraversalTest(unittest.TestCase):
 
     def test_dfs_with_digraph(self):
         self.assertEqual(list(dfs(self.digraph, 1)),
-            [(1, 2), (2, 3), (2, 4)])
+                         [(1, 2), (2, 3), (2, 4)])
 
     def test_dfs_with_digraph_missing_node(self):
         with self.assertRaises(NodeNotFound):
@@ -47,9 +47,9 @@ class TraversalTest(unittest.TestCase):
 
     def test_bfs_with_graph(self):
         self.assertEqual(list(bfs(self.graph, 1)),
-            [{1: {2}}, {2: {3, 7}}, 
-            {3: {5}, 7: {'Sofia'}},
-            {'Sofia': set(), 5: set()}])
+                         [{1: {2}}, {2: {3, 7}},
+                         {3: {5}, 7: {'Sofia'}},
+                         {'Sofia': set(), 5: set()}])
 
     def test_bfs_with_graph_missing_node(self):
         with self.assertRaises(NodeNotFound):
@@ -57,7 +57,7 @@ class TraversalTest(unittest.TestCase):
 
     def test_bfs_with_digraph(self):
         self.assertEqual(list(bfs(self.digraph, 1)),
-            [{1: {2}}, {2: {3, 4}}, {3: set(), 4: set()}])
+                         [{1: {2}}, {2: {3, 4}}, {3: set(), 4: set()}])
 
     def test_bfs_with_digraph_missing_node(self):
         with self.assertRaises(NodeNotFound):

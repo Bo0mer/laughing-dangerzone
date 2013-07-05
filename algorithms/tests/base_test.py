@@ -37,4 +37,3 @@ class BaseTest(unittest.TestCase):
     def test_base_digraph(self):
         digraph_base = base(self.digraph)
         self.assertEqual({6, 7, 8}, digraph_base)
-

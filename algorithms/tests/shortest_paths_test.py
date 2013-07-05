@@ -94,8 +94,8 @@ class ShortestPathsTest(unittest.TestCase):
         g.add_edge(3, 1, w=7)
         g.add_edge(3, 5, w=7)
         self.assertEqual(shortest_paths_from(g, 1, weight_attribute='w'),
-                        ({1: None, 2: 1, 3: 4, 4: 5, 5: 2},
-                        {1: 0, 2: 7, 3: -2, 4: 2, 5: 4}))
+                         ({1: None, 2: 1, 3: 4, 4: 5, 5: 2},
+                          {1: 0, 2: 7, 3: -2, 4: 2, 5: 4}))
 
     def test_bellman_ford_digraph_negative_cycle(self):
         self.positive_digraph.add_edge(2, 1, w=-6)

@@ -34,9 +34,9 @@ class MSTTest(unittest.TestCase):
 
     def test_mst_prim_tree(self):
         self.assertEqual(list(mst_prim(self.graph, 1)),
-                [(1, 2, 3), (2, 8, 8), (8, 6, 5),
-                 (8, 7, 6), (6, 3, 7), (6, 5, 9), 
-                 (3, 4, 15)])
+                         [(1, 2, 3), (2, 8, 8), (8, 6, 5),
+                          (8, 7, 6), (6, 3, 7), (6, 5, 9),
+                          (3, 4, 15)])
 
     def test_mst_prim_digraph(self):
         with self.assertRaises(NotUndirectedGraph):

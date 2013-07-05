@@ -49,7 +49,7 @@ class EulerianTest(unittest.TestCase):
 
     def test_find_eulerian_cycle_graph(self):
         self.assertEqual(find_eulerian_cycle(self.graph, 1),
-            [1, 8, 5, 7, 8, 2, 3, 4, 2, 1, 9, 6, 1])
+                         [1, 8, 5, 7, 8, 2, 3, 4, 2, 1, 9, 6, 1])
 
     def test_find_eulerian_cycle_graph_missing_node(self):
         with self.assertRaises(NodeNotFound):
@@ -62,7 +62,7 @@ class EulerianTest(unittest.TestCase):
 
     def test_find_eulerian_cycle_digraph(self):
         self.assertEqual(find_eulerian_cycle(self.digraph, 1),
-            [1, 2, 3, 4, 2, 5, 3, 5, 6, 3, 7, 8, 1])
+                         [1, 2, 3, 4, 2, 5, 3, 5, 6, 3, 7, 8, 1])
 
     def test_find_eulerian_cycle_digraph_missing_node(self):
         with self.assertRaises(NodeNotFound):
